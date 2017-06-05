@@ -1,10 +1,15 @@
 package cn.nukkit.block;
 
 import cn.nukkit.Player;
+import cn.nukkit.blockentity.BlockEntity;
+import cn.nukkit.blockentity.BlockEntityBed;
 import cn.nukkit.item.Item;
+import cn.nukkit.item.ItemBed;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.AxisAlignedBB;
 import cn.nukkit.math.BlockFace;
+import cn.nukkit.math.Vector3;
+import cn.nukkit.nbt.tag.CompoundTag;
 import cn.nukkit.utils.BlockColor;
 import cn.nukkit.utils.TextFormat;
 
@@ -119,7 +124,7 @@ public class BlockBed extends BlockTransparent {
         Block down = this.down();
         if (!down.isTransparent()) {
             int[] faces = {3, 4, 2, 5};
-            int d = player != null ? player.getDirection() : 0;
+            int d = player != null ? player.getDirection().getHorizontalIndex() : 0;
             Block next = this.getSide(BlockFace.fromIndex(faces[((d + 3) % 4)]));
             Block downNext = this.down();
 
@@ -128,6 +133,8 @@ public class BlockBed extends BlockTransparent {
                 this.getLevel().setBlock(block, Block.get(this.getId(), meta), true, true);
                 this.getLevel().setBlock(next, Block.get(this.getId(), meta | 0x08), true, true);
 
+                createBlockEntity(this, item.getDamage());
+                createBlockEntity(next, item.getDamage());
                 return true;
             }
         }
@@ -168,11 +175,16 @@ public class BlockBed extends BlockTransparent {
         return true;
     }
 
+    private void createBlockEntity(Vector3 pos, int color) {
+        CompoundTag nbt = BlockEntity.getDefaultCompound(pos, BlockEntity.BED);
+        nbt.putByte("color", color);
+
+        new BlockEntityBed(this.level.getChunk(pos.getFloorX() >> 4, pos.getFloorZ() >> 4), nbt);
+    }
+
     @Override
-    public int[][] getDrops(Item item) {
-        return new int[][]{
-                {Item.BED, 0, 1}
-        };
+    public Item toItem() {
+        return new ItemBed(); //TODO: color
     }
 
     @Override
