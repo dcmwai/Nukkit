@@ -215,17 +215,12 @@ public class BlockCauldron extends BlockSolid {
     }
 
     @Override
-    public Item[] getDrops(Item item) {
+    public int[][] getDrops(Item item) {
         if (item.getTier() >= ItemTool.TIER_WOODEN) {
-            return new Item[]{new ItemCauldron()};
+            return new int[][]{{Item.CAULDRON, 0, 1}};
         }
 
-        return new Item[0];
-    }
-
-    @Override
-    public Item toItem() {
-        return new ItemCauldron();
+        return new int[0][0];
     }
 
     public boolean hasComparatorInputOverride() {

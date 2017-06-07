@@ -1,5 +1,6 @@
 package cn.nukkit.block;
 
+import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
 
 /**
@@ -41,5 +42,12 @@ public class BlockRedstoneLampLit extends BlockRedstoneLamp {
             this.level.setBlock(this, new BlockRedstoneLamp(), false, false);
         }
         return 0;
+    }
+
+    @Override
+    public int[][] getDrops(Item item) {
+        return new int[][]{
+                {Item.REDSTONE_LAMP, 0, 1}
+        };
     }
 }

@@ -41,7 +41,13 @@ public class LoginPacket extends DataPacket {
     public void decode() {
         this.protocol = this.getInt();
         this.gameEdition = (byte) this.getByte();
-        this.setBuffer(this.getByteArray(), 0);
+        byte[] str;
+        try {
+            str = Zlib.inflate(this.get((int) this.getUnsignedVarInt()));
+        } catch (Exception e) {
+            return;
+        }
+        this.setBuffer(str, 0);
         decodeChainData();
         decodeSkinData();
     }

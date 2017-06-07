@@ -108,7 +108,7 @@ public class PlayerInventory extends BaseInventory {
         Item item = this.getItemInHand();
 
         MobEquipmentPacket pk = new MobEquipmentPacket();
-        pk.eid = this.getHolder().getId();
+        pk.eid = player.equals(this.getHolder()) ? 0 : this.getHolder().getId();
         pk.item = item;
         pk.slot = (byte) this.getHeldItemSlot();
         pk.selectedSlot = (byte) this.getHeldItemIndex();
@@ -320,7 +320,6 @@ public class PlayerInventory extends BaseInventory {
             if (player.equals(this.getHolder())) {
                 ContainerSetContentPacket pk2 = new ContainerSetContentPacket();
                 pk2.windowid = ContainerSetContentPacket.SPECIAL_ARMOR;
-                pk2.eid = player.getId();
                 pk2.slots = armor;
                 player.dataPacket(pk2);
             } else {
@@ -414,7 +413,6 @@ public class PlayerInventory extends BaseInventory {
                 this.close(player);
                 continue;
             }
-            pk.eid = player.getId();
             pk.windowid = (byte) id;
             player.dataPacket(pk.clone());
         }

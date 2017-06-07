@@ -34,6 +34,8 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonObject;
 
+import static co.aikar.timings.TimingsManager.HISTORY;
+
 import java.io.*;
 import java.lang.management.ManagementFactory;
 import java.lang.management.RuntimeMXBean;
@@ -43,8 +45,6 @@ import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.zip.GZIPOutputStream;
-
-import static co.aikar.timings.TimingsManager.HISTORY;
 
 public class TimingsExport extends Thread {
     private final CommandSender sender;

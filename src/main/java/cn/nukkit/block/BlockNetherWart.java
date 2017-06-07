@@ -4,7 +4,6 @@ import cn.nukkit.Player;
 import cn.nukkit.Server;
 import cn.nukkit.event.block.BlockGrowEvent;
 import cn.nukkit.item.Item;
-import cn.nukkit.item.ItemNetherWart;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.utils.BlockColor;
@@ -84,21 +83,16 @@ public class BlockNetherWart extends BlockFlowable {
     }
 
     @Override
-    public Item[] getDrops(Item item) {
+    public int[][] getDrops(Item item) {
         if (this.meta == 0x03) {
-            return new Item[]{
-                    new ItemNetherWart(0, 2 + (int) (Math.random() * ((4 - 2) + 1)))
+            return new int[][]{
+                    {Item.NETHER_WART, 0, 2 + (int) (Math.random() * ((4 - 2) + 1))}
             };
         } else {
-            return new Item[]{
-                    new ItemNetherWart()
+            return new int[][]{
+                    {Item.NETHER_WART, 0, 1}
             };
         }
-    }
-
-    @Override
-    public Item toItem() {
-        return new ItemNetherWart();
     }
 }
 

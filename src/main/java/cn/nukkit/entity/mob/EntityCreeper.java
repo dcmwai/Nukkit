@@ -1,7 +1,6 @@
 package cn.nukkit.entity.mob;
 
 import cn.nukkit.Player;
-import cn.nukkit.entity.Entity;
 import cn.nukkit.entity.data.ByteEntityData;
 import cn.nukkit.entity.weather.EntityLightningStrike;
 import cn.nukkit.event.entity.CreeperPowerEvent;
@@ -62,11 +61,6 @@ public class EntityCreeper extends EntityMob {
             return new Item[]{Item.get(Item.GUNPOWDER, level.rand.nextInt(2) + 1)};
         }
         return new Item[0];
-    }
-
-    @Override
-    public void onStruckByLightning(Entity entity) {
-        this.setPowered(true);
     }
 
     @Override

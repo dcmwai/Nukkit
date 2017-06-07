@@ -4,27 +4,27 @@ import cn.nukkit.item.Item;
 import cn.nukkit.item.ItemTool;
 
 /**
- * author: MagicDroidX
- * Nukkit Project
+ * Created on 2015/11/22 by xtypr.
+ * Package cn.nukkit.block in project Nukkit .
  */
-public class BlockIcePacked extends BlockIce {
+public class BlockStonecutter extends BlockSolid {
 
-    public BlockIcePacked() {
+    public BlockStonecutter() {
         this(0);
     }
 
-    public BlockIcePacked(int meta) {
-        super(0);
+    public BlockStonecutter(int meta) {
+        super(meta);
     }
 
     @Override
     public int getId() {
-        return PACKED_ICE;
+        return STONECUTTER;
     }
 
     @Override
     public String getName() {
-        return "Packed Ice";
+        return "Stonecutter";
     }
 
     @Override
@@ -33,14 +33,14 @@ public class BlockIcePacked extends BlockIce {
     }
 
     @Override
-    public int onUpdate(int type) {
-        return 0; //not being melted
+    public double getResistance() {
+        return 17.5;
     }
 
     @Override
     public int[][] getDrops(Item item) {
         return new int[][]{
-                {this.getId(), 0, 1}
+                {Item.STONECUTTER, 0, 1}
         };
     }
 }

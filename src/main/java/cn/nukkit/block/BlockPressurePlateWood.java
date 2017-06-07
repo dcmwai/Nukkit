@@ -47,9 +47,9 @@ public class BlockPressurePlateWood extends BlockPressurePlateBase {
     }
 
     @Override
-    public Item[] getDrops(Item item) {
-        return new Item[]{
-                toItem()
+    public int[][] getDrops(Item item) {
+        return new int[][]{
+                {Item.WOODEN_PRESSURE_PLATE, 0, 1}
         };
     }
 

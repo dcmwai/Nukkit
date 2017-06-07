@@ -47,7 +47,7 @@ public abstract class BlockStairs extends BlockTransparent {
     @Override
     public boolean place(Item item, Block block, Block target, BlockFace face, double fx, double fy, double fz, Player player) {
         int[] faces = new int[]{0, 2, 1, 3};
-        this.meta = (faces[player.getDirection().getHorizontalIndex()] & 0x03);
+        this.meta = (faces[player.getDirection()] & 0x03);
         if ((fy > 0.5 && face != BlockFace.UP) || face == BlockFace.DOWN) {
             this.meta |= 0x04; //Upside-down stairs
         }
@@ -57,20 +57,13 @@ public abstract class BlockStairs extends BlockTransparent {
     }
 
     @Override
-    public Item[] getDrops(Item item) {
+    public int[][] getDrops(Item item) {
         if (item.isPickaxe() && item.getTier() >= ItemTool.TIER_WOODEN) {
-            return new Item[]{
-                    toItem()
+            return new int[][]{
+                    {this.getId(), 0, 1}
             };
         } else {
-            return new Item[0];
+            return new int[0][0];
         }
-    }
-
-    @Override
-    public Item toItem() {
-        Item item = super.toItem();
-        item.setDamage(0);
-        return item;
     }
 }

@@ -1,9 +1,7 @@
 package cn.nukkit.block;
 
 import cn.nukkit.entity.Entity;
-import cn.nukkit.event.block.BlockRedstoneEvent;
 import cn.nukkit.item.Item;
-import cn.nukkit.item.ItemBlock;
 import cn.nukkit.level.Level;
 import cn.nukkit.level.sound.ClickSound;
 import cn.nukkit.math.AxisAlignedBB;
@@ -68,7 +66,7 @@ public abstract class BlockPressurePlateBase extends BlockFlowable {
 
     @Override
     public boolean place(Item item, Block block, Block target, BlockFace face, double fx, double fy, double fz) {
-//        System.out.println("place");
+        System.out.println("place");
         if (block.down().isTransparent()) {
             return false;
         }
@@ -105,10 +103,8 @@ public abstract class BlockPressurePlateBase extends BlockFlowable {
 
             if (!isPowered && wasPowered) {
                 this.playOffSound();
-                this.level.getServer().getPluginManager().callEvent(new BlockRedstoneEvent(this, 15, 0));
             } else if (isPowered && !wasPowered) {
                 this.playOnSound();
-                this.level.getServer().getPluginManager().callEvent(new BlockRedstoneEvent(this, 0, 15));
             }
         }
 
@@ -156,9 +152,4 @@ public abstract class BlockPressurePlateBase extends BlockFlowable {
     }
 
     protected abstract int computeRedstoneStrength();
-
-    @Override
-    public Item toItem() {
-        return new ItemBlock(this, 0, 1);
-    }
 }

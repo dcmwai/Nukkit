@@ -3,7 +3,6 @@ package cn.nukkit.block;
 import cn.nukkit.Player;
 import cn.nukkit.entity.Entity;
 import cn.nukkit.item.Item;
-import cn.nukkit.item.ItemBlock;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.AxisAlignedBB;
@@ -54,11 +53,6 @@ public class BlockVine extends BlockTransparent {
 
     @Override
     public boolean canBeReplaced() {
-        return true;
-    }
-
-    @Override
-    public boolean canBeClimbed() {
         return true;
     }
 
@@ -129,7 +123,7 @@ public class BlockVine extends BlockTransparent {
 
     @Override
     public boolean place(Item item, Block block, Block target, BlockFace face, double fx, double fy, double fz, Player player) {
-        if (target.isSolid()) {
+        if (!target.isTransparent() && target.isSolid()) {
             int[] faces = new int[]{
                     0,
                     0,
@@ -146,19 +140,14 @@ public class BlockVine extends BlockTransparent {
     }
 
     @Override
-    public Item[] getDrops(Item item) {
+    public int[][] getDrops(Item item) {
         if (item.isShears()) {
-            return new Item[]{
-                    toItem()
+            return new int[][]{
+                    {this.getId(), 0, 1}
             };
         } else {
-            return new Item[0];
+            return new int[0][0];
         }
-    }
-
-    @Override
-    public Item toItem() {
-        return new ItemBlock(this, 0);
     }
 
     @Override
