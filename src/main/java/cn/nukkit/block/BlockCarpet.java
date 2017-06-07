@@ -51,11 +51,6 @@ public class BlockCarpet extends BlockFlowable {
     }
 
     @Override
-    public boolean canPassThrough() {
-        return false;
-    }
-
-    @Override
     protected AxisAlignedBB recalculateBoundingBox() {
 
         return new AxisAlignedBB(

@@ -176,7 +176,7 @@ public abstract class Enchantment implements Cloneable {
         return this.getMinEnchantAbility(level) + 5;
     }
 
-    public float getDamageProtection(EntityDamageEvent event) {
+    public int getDamageProtection(EntityDamageEvent event) {
         return 0;
     }
 

@@ -5,7 +5,6 @@ import cn.nukkit.Server;
 import cn.nukkit.event.block.BlockGrowEvent;
 import cn.nukkit.item.Item;
 import cn.nukkit.level.Level;
-import cn.nukkit.level.particle.BoneMealParticle;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.utils.BlockColor;
 
@@ -33,7 +32,8 @@ public abstract class BlockCrops extends BlockFlowable {
 
     @Override
     public boolean place(Item item, Block block, Block target, BlockFace face, double fx, double fy, double fz, Player player) {
-        if (block.down().getId() == FARMLAND) {
+        Block down = this.down();
+        if (down.getId() == FARMLAND) {
             this.getLevel().setBlock(block, this, true, true);
             return true;
         }
@@ -50,23 +50,20 @@ public abstract class BlockCrops extends BlockFlowable {
         //Bone meal
         if (item.getId() == Item.DYE && item.getDamage() == 0x0f) {
             BlockCrops block = (BlockCrops) this.clone();
-            if (this.meta < 7) {
-                block.meta += new Random().nextInt(3) + 2;
-                if (block.meta > 7) {
-                    block.meta = 7;
-                }
-                BlockGrowEvent ev = new BlockGrowEvent(this, block);
-                Server.getInstance().getPluginManager().callEvent(ev);
+            block.meta += new Random().nextInt(3) + 2;
+            if (block.meta > 7) {
+                block.meta = 7;
+            }
+            BlockGrowEvent ev = new BlockGrowEvent(this, block);
+            Server.getInstance().getPluginManager().callEvent(ev);
 
-                if (ev.isCancelled()) {
-                    return false;
-                }
-
-                this.getLevel().setBlock(this, ev.getNewState(), true, true);
+            if (ev.isCancelled()) {
+                return false;
             }
 
-            this.level.addParticle(new BoneMealParticle(this.add(0.5, 0.5, 0.5)));
+            this.getLevel().setBlock(this, ev.getNewState(), true, true);
             item.count--;
+
             return true;
         }
 

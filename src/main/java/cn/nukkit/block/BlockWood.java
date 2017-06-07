@@ -2,7 +2,6 @@ package cn.nukkit.block;
 
 import cn.nukkit.Player;
 import cn.nukkit.item.Item;
-import cn.nukkit.item.ItemBlock;
 import cn.nukkit.item.ItemTool;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.utils.BlockColor;
@@ -86,8 +85,8 @@ public class BlockWood extends BlockSolid {
     }
 
     @Override
-    public Item toItem() {
-        return new ItemBlock(this, this.meta & 0x03);
+    public int[][] getDrops(Item item) {
+        return new int[][]{new int[]{this.getId(), this.meta & 0x03, 1}};
     }
 
     @Override

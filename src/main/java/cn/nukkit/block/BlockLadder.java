@@ -39,11 +39,6 @@ public class BlockLadder extends BlockTransparent {
     }
 
     @Override
-    public boolean canBeClimbed() {
-        return true;
-    }
-
-    @Override
     public boolean isSolid() {
         return false;
     }
@@ -143,6 +138,13 @@ public class BlockLadder extends BlockTransparent {
     @Override
     public int getToolType() {
         return ItemTool.TYPE_AXE;
+    }
+
+    @Override
+    public int[][] getDrops(Item item) {
+        return new int[][]{
+                {this.getId(), 0, 1}
+        };
     }
 
     @Override

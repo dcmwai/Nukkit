@@ -87,11 +87,11 @@ public class ServerScheduler {
     }
 
     public int getAsyncTaskPoolSize() {
-        return asyncPool.getCorePoolSize();
+        return asyncPool.getSize();
     }
 
     public void increaseAsyncTaskPoolSize(int newSize) {
-        throw new UnsupportedOperationException("Cannot increase a working pool size."); //wtf?
+        throw new UnsupportedOperationException("Cannot increase a working pool size.");
     }
 
     public TaskHandler scheduleDelayedTask(Task task, int delay) {
@@ -275,7 +275,7 @@ public class ServerScheduler {
                 taskMap.remove(taskHandler.getTaskId());
                 continue;
             } else if (taskHandler.isAsynchronous()) {
-                asyncPool.execute(taskHandler.getTask());
+                asyncPool.submitTask(taskHandler.getTask());
             } else {
                 taskHandler.timing.startTiming();
                 try {

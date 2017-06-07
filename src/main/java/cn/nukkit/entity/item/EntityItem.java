@@ -62,11 +62,6 @@ public class EntityItem extends Entity {
     }
 
     @Override
-    protected float getBaseOffset() {
-        return 0.125f;
-    }
-
-    @Override
     public boolean canCollide() {
         return false;
     }
@@ -249,9 +244,10 @@ public class EntityItem extends Entity {
         pk.speedX = (float) this.motionX;
         pk.speedY = (float) this.motionY;
         pk.speedZ = (float) this.motionZ;
-        pk.metadata = this.dataProperties;
         pk.item = this.getItem();
         player.dataPacket(pk);
+
+        this.sendData(player);
 
         super.spawnTo(player);
     }

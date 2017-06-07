@@ -4,7 +4,6 @@ import cn.nukkit.Player;
 import cn.nukkit.blockentity.BlockEntity;
 import cn.nukkit.blockentity.BlockEntityFlowerPot;
 import cn.nukkit.item.Item;
-import cn.nukkit.item.ItemFlowerPot;
 import cn.nukkit.math.AxisAlignedBB;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.nbt.tag.CompoundTag;
@@ -125,7 +124,7 @@ public class BlockFlowerPot extends BlockFlowable {
     }
 
     @Override
-    public Item[] getDrops(Item item) {
+    public int[][] getDrops(Item item) {
         boolean dropInside = false;
         int insideID = 0;
         int insideMeta = 0;
@@ -137,13 +136,13 @@ public class BlockFlowerPot extends BlockFlowable {
         }
 
         if (dropInside) {
-            return new Item[]{
-                    new ItemFlowerPot(),
-                    Item.get(insideID, insideMeta, 1)
+            return new int[][]{
+                    {Item.FLOWER_POT, 0, 1},
+                    {insideID, insideMeta, 1}
             };
         } else {
-            return new Item[]{
-                    new ItemFlowerPot()
+            return new int[][]{
+                    {Item.FLOWER_POT, 0, 1}
             };
         }
     }

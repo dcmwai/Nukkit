@@ -2,7 +2,6 @@ package cn.nukkit.block;
 
 import cn.nukkit.Player;
 import cn.nukkit.item.Item;
-import cn.nukkit.item.ItemStick;
 import cn.nukkit.level.Level;
 import cn.nukkit.math.BlockFace;
 import cn.nukkit.utils.BlockColor;
@@ -56,14 +55,14 @@ public class BlockDeadBush extends BlockFlowable {
     }
 
     @Override
-    public Item[] getDrops(Item item) {
+    public int[][] getDrops(Item item) {
         if (item.isShears()) {
-            return new Item[]{
-                    toItem()
+            return new int[][]{
+                    {Item.DEAD_BUSH, 0, 1}
             };
         } else {
-            return new Item[]{
-                    new ItemStick(0, new Random().nextInt(3))
+            return new int[][]{
+                    {Item.STICK, 0, new Random().nextInt(3)}
             };
         }
     }
